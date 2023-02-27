@@ -17,5 +17,7 @@ namespace MovieApi.Models.Domain
         public string ? PictureUrl { get; set; }
 
         public string ? TrailerUrl { get; set; }
+
+        public Franchise ? MovieFranchise { get; set; }
     }
 }
