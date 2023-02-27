@@ -476,3 +476,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 .vs/MovieApi/v17/.suo
+MovieApi.csproj
+.vs/ProjectEvaluation/movieapi.projects.v6.1
+.vs/ProjectEvaluation/movieapi.metadata.v6.1
+.vs/MovieApi/v17/.suo
+.vs/MovieApi/v17/.futdcache.v2
+.vs/MovieApi/DesignTimeBuild/.dtbcache.v2
