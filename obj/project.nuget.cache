@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vGznVQxzDmXfeuXLgb74RByPGcSq45ox6wNYi0gjBR9Yy1l/zwLKDJVu7MO5eDMv88yKC3YFkc25LomdmNJASA==",
+  "dgSpecHash": "5cLfMDQPhaWD1LpC89kLSZE59rJNMaNsvS89Qplm2XxsRbCcf73tZEeGUZ8ztyY79l+TOlWvxZjcOGkzPmF6Nw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\simon\\source\\repos\\MovieAPI\\MovieApi.csproj",
+  "projectFilePath": "C:\\Users\\simon\\source\\repos\\MovieApi\\MovieApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.3\\microsoft.data.sqlite.core.7.0.3.nupkg.sha512",
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.3\\microsoft.entityframeworkcore.7.0.3.nupkg.sha512",
