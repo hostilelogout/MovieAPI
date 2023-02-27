@@ -1,6 +1,6 @@
 ﻿namespace MovieApi.Services.Movie
 {
-    public interface MovieService
+    public class MovieService : IMovieService
     {
     }
 }
