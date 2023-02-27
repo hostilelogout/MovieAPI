@@ -1,6 +1,6 @@
 ﻿namespace MovieApi.Services.Franchise
 {
-    public interface FranchiseService
+    public class FranchiseService : IFranchiseService
     {
     }
 }
