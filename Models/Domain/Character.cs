@@ -12,5 +12,7 @@ namespace MovieApi.Models.Domain
         public Genders ? Gender { get; set; }
         public string ? PictureUrl { get; set; }
 
+        public ICollection<Movie> ?AppearInMovies { get; set; }
+
     }
 }
