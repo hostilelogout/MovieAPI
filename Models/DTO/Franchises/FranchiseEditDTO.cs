@@ -1,4 +1,4 @@
-﻿namespace MovieApi.Models.DTO.Franchise
+﻿namespace MovieApi.Models.DTO.Franchises
 {
     public class FranchiseEditDTO
     {

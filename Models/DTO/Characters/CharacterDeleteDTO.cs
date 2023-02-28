@@ -1,4 +1,4 @@
-﻿namespace MovieApi.Models.DTO.Character
+﻿namespace MovieApi.Models.DTO.Characters
 {
     public class CharacterDeleteDTO
     {

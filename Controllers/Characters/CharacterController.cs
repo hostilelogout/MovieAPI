@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieApi.Models;
 using Microsoft.EntityFrameworkCore;
-using MovieApi.Models.DTO.Character;
+using MovieApi.Models.DTO.Characters;
 using System.Net.Mime;
 using AutoMapper;
 
-namespace MovieApi.Controllers.Character
+namespace MovieApi.Controllers.Characters
 {
     [Route("api/v1/character")]
     [ApiController]
@@ -15,7 +15,7 @@ namespace MovieApi.Controllers.Character
     public class CharacterController : ControllerBase
     {
         protected readonly MovieDbContext? _context;
-        protected readonly IMapper ?_mapper;
+        protected readonly IMapper? _mapper;
 
         public CharacterController(MovieDbContext? context, IMapper? mapper)
         {

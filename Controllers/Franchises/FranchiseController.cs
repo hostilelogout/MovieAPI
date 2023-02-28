@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MovieApi.Controllers.Franchise
+namespace MovieApi.Controllers.Franchises
 {
     public class FranchiseController : ControllerBase
     {
