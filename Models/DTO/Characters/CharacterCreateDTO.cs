@@ -1,6 +1,6 @@
 ﻿using MovieApi.Models.Domain;
 
-namespace MovieApi.Models.DTO.Character
+namespace MovieApi.Models.DTO.Characters
 {
     public class CharacterCreateDTO
     {
@@ -10,6 +10,6 @@ namespace MovieApi.Models.DTO.Character
         public string? Gender { get; set; }
         public string? PictureUrl { get; set; }
 
-        public ICollection<Domain.Movie> ? Movies { get; set; }
+        public ICollection<Movie>? Movies { get; set; }
     }
 }

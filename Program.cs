@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using MovieApi.Models;
-using MovieApi.Services.Character;
+using MovieApi.Services.Characters;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

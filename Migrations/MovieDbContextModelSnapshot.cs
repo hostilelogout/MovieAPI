@@ -22,7 +22,7 @@ namespace MovieApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MovieApi.Models.Domain.Character", b =>
+            modelBuilder.Entity("MovieApi.Character", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace MovieApi.Migrations
 
             modelBuilder.Entity("MovieCharacter", b =>
                 {
-                    b.HasOne("MovieApi.Models.Domain.Character", null)
+                    b.HasOne("MovieApi.Character", null)
                         .WithMany()
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
