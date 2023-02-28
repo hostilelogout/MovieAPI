@@ -29,7 +29,7 @@ namespace MovieApi.Services.Character
         public async Task<IEnumerable<Models.Domain.Character>> GetAllCharacters()
         {
             return await _context!.Character
-                .Include(c => c.AppearInMovies!)
+                .Include(c => c.Movies!)
                 .ToListAsync();
         }
 

@@ -21,6 +21,7 @@ namespace MovieApi.Models.Domain
         [MaxLength(100)]
         public string ? TrailerUrl { get; set; }
         // Relationships
+        public int ? FranchiseId { get; set; }
         public Franchise ? Franchise { get; set; }
         public ICollection<Character> ? Characters { get; set; }
     }
