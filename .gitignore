@@ -482,3 +482,9 @@ MovieApi.csproj
 .vs/MovieApi/v17/.suo
 .vs/MovieApi/v17/.futdcache.v2
 .vs/MovieApi/DesignTimeBuild/.dtbcache.v2
+*.cache
+*.1
+*.csproj
+.vs/MovieApi/v17/.suo
+*.v2
+*.json
