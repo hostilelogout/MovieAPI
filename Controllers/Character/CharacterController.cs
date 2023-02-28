@@ -30,9 +30,10 @@ namespace MovieApi.Controllers.Character
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
-            return _mapper!.Map<List<CharacterReadDTO>>(await _context!.Character
-                .Include(c => c.AppearInMovies)
-                .ToListAsync());
+            return Ok(await _context!.Character.ToListAsync());
+            //return _mapper!.Map<List<CharacterReadDTO>>(await _context!.Character
+            //    .Include(c => c.Movies)
+            //    .ToListAsync());
         }
     }
 }
