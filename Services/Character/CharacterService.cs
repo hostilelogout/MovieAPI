@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieApi.Models;
+using MovieApi.Models.Domain;
 
 namespace MovieApi.Services.Character
 {
@@ -18,9 +19,11 @@ namespace MovieApi.Services.Character
 
         public bool CharacterExists(int id) => _context!.Character.Any(x => x.Id == id);
 
-        public Task DeleteCharacterAsync(Models.Domain.Character character)
+        public async Task DeleteCharacterAsync(int id)
         {
-            throw new NotImplementedException();
+            Models.Domain.Character ?character = await _context!.Character.FindAsync(id);
+            _context!.Character.Remove(character!);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Models.Domain.Character>> GetAllCharacters()
@@ -32,9 +35,10 @@ namespace MovieApi.Services.Character
 
         public async Task<Models.Domain.Character> GetSpecificCharacterAsync(int id) => await _context!.Character.FindAsync(id);
 
-        public Task UpdateCharacterAsync(Models.Domain.Character character)
+        public async Task UpdateCharacterAsync(Models.Domain.Character character)
         {
-            throw new NotImplementedException();
+            _context!.Entry(character).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

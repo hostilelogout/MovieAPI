@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "vGznVQxzDmXfeuXLgb74RByPGcSq45ox6wNYi0gjBR9Yy1l/zwLKDJVu7MO5eDMv88yKC3YFkc25LomdmNJASA==",
+  "dgSpecHash": "WPSit9/PSten9PAsZTCdbXdZneyTRFo3fj2WACf/8VmZBnoY6k1qRYqvbR4068yPeKphZ4fVntuH9ZoRzlrPRg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\simon\\source\\repos\\MovieAPI\\MovieApi.csproj",
+  "projectFilePath": "C:\\Users\\simon\\source\\repos\\MovieApi\\MovieApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\simon\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\simon\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.3\\microsoft.data.sqlite.core.7.0.3.nupkg.sha512",
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.3\\microsoft.entityframeworkcore.7.0.3.nupkg.sha512",
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.3\\microsoft.entityframeworkcore.abstractions.7.0.3.nupkg.sha512",
