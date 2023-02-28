@@ -476,7 +476,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 .vs/MovieApi/v17/.suo
-MovieApi.csproj
+*MovieApi.csproj
 .vs/ProjectEvaluation/movieapi.projects.v6.1
 .vs/ProjectEvaluation/movieapi.metadata.v6.1
 .vs/MovieApi/v17/.suo
