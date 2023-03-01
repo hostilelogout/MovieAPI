@@ -6,6 +6,11 @@ namespace MovieApi.Models.Domain
     [Table("Franchise")]
     public class Franchise
     {
+        public Franchise()
+        {
+            Movies = new List<Movie>();
+        }
+
         // PK
         public int Id { get; set; }
         // Fields
@@ -14,6 +19,6 @@ namespace MovieApi.Models.Domain
         [MaxLength(200)]
         public string ? Description { get; set; }
         // Relationships
-        public ICollection<Movie> ? Movies { get; set; }
+        public ICollection<Movie> Movies { get; set; }
     }
 }

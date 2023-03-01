@@ -2,5 +2,6 @@
 {
     public class FranchiseDeleteDTO
     {
+        public int Id { get; set; }
     }
 }
