@@ -19,8 +19,8 @@ namespace MovieApi.Models.DTO.Movies
         [MaxLength(100)]
         public string? TrailerUrl { get; set; }
         // Relationships
-        public int? FranchiseId { get; set; }
-        public KeyValuePair<int,string> ? Franchise { get; set; }
+        public int? Franchise { get; set; }
+        //public KeyValuePair<int,string> ? Franchise { get; set; }
         public Dictionary<int, string> ? Characters { get; set; }
     }
 }
