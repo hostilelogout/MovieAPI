@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MovieApi.Models.Domain;
+using MovieApi.Models.DTO.Characters;
 using MovieApi.Models.DTO.Movies;
 using MovieApi.Services.Movies;
 using System.Net;
@@ -16,12 +17,12 @@ namespace MovieApi.Controllers.Movies
     [ApiController]
     public class MovieController : ControllerBase
     {
-        protected readonly IMovieService ? _context;
-        protected readonly IMapper ? _mapper;
+        protected readonly IMovieService _movieService;
+        protected readonly IMapper _mapper;
 
-        public MovieController(IMovieService ? context, IMapper ? mapper)
+        public MovieController(IMovieService movieService, IMapper mapper)
         {
-            _context = context;
+            _movieService = movieService;
             _mapper = mapper;
         }
 
@@ -33,7 +34,7 @@ namespace MovieApi.Controllers.Movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovies()
         {
-            return Ok(_mapper!.Map<List<MovieReadDTO>>(await _context!.GetAllAsync()));
+            return Ok(_mapper!.Map<List<MovieReadDTO>>(await _movieService!.GetAllAsync()));
         }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace MovieApi.Controllers.Movies
             try
             {
                 return Ok(_mapper!.Map<MovieReadDTO>(
-                        await _context!.GetByIdAsync(id))
+                        await _movieService!.GetByIdAsync(id))
                     );
             }
             catch (Exception ex)
@@ -71,7 +72,7 @@ namespace MovieApi.Controllers.Movies
         public async Task<ActionResult<MovieCreateDTO>> CreateCharacter(MovieCreateDTO movieDTO)
         {
             Movie movie = _mapper!.Map<Movie>(movieDTO);
-            await _context!.AddAsync(movie);
+            await _movieService!.AddAsync(movie);
             return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
         }
 
@@ -85,7 +86,28 @@ namespace MovieApi.Controllers.Movies
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie(int id, MovieEditDTO movie)
         {
-            return null;
+            if (id != movie.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _movieService.UpdateAsync(
+                        _mapper.Map<Movie>(movie)
+                    );
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
         }
 
         /// <summary>
@@ -98,7 +120,61 @@ namespace MovieApi.Controllers.Movies
         {
             try
             {
-                await _context!.DeleteByIdAsync(id);
+                await _movieService!.DeleteByIdAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+        }
+
+        /// <summary>
+        /// Gets all the characters in a specific movie, with a given <paramref name="id"/>.
+        /// </summary>
+        /// <param name="id">The id/index of specific movie object in database.</param>
+        /// <returns></returns>
+        [HttpGet("{id}/characters")]
+        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersInMovie(int id)
+        {
+            try
+            {
+                return Ok(
+                        _mapper.Map<List<CharacterReadDTO>>(
+                            await _movieService.GetCharactersAsync(id)
+                        )
+                    );
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+        }
+
+        /// <summary>
+        /// Updates the characters in a specific movie, by the their ids.
+        /// </summary>
+        /// <param name="movieIds">The ids/indicies of characters in the movie.</param>
+        /// <param name="id">The id/index of specific movie in database.</param>
+        /// <returns></returns>
+        [HttpPut("{id}/characters")]
+        public async Task<IActionResult> UpdateCharactersInMovie(int[] movieIds, int id)
+        {
+            try
+            {
+                await _movieService.UpdateCharactersAsync(movieIds, id);
                 return NoContent();
             }
             catch (Exception ex)
