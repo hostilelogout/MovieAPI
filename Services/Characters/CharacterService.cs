@@ -56,9 +56,16 @@ namespace MovieApi.Services.Characters
                 .FirstAsync();
         }
 
-        public Task UpdateAsync(Character entity)
+        public async Task UpdateAsync(Character entity)
         {
-            throw new NotImplementedException();
+            // Log and throw pattern
+            if (!await CharacterExistsAsync(entity.Id))
+            {
+                _logger!.LogError("Character not found with Id: " + entity.Id);
+                throw new Exception();
+            }
+            _context!.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> CharacterExistsAsync(int id)
