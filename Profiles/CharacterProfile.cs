@@ -13,7 +13,7 @@ namespace MovieApi.Profiles
             CreateMap<CharacterEditDTO, Character>();
             CreateMap<Character, CharacterReadDTO>()
                 .ForMember(dto => dto.Movies, opt => opt
-                .MapFrom(p => p.Movies!.Select(s => s.Id).ToList()));
+                .MapFrom(p => p.Movies!.Select(s => s.MovieTitle).ToList()));
         }
     }
 }
