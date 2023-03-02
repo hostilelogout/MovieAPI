@@ -18,29 +18,29 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-//var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-//
-//builder.Services.AddSwaggerGen(options =>
-//{
-//    options.SwaggerDoc("v1", new OpenApiInfo
-//    {
-//        Version = "v1",
-//        Title = "(yet another) Guitar API",
-//        Description = "YET ANOTHER GUITAR API",
-//        Contact = new OpenApiContact
-//        {
-//            Name = "Sean Skinner",
-//            Url = new Uri("https://gitlab.com/SeanSkinner")
-//        },
-//        License = new OpenApiLicense
-//        {
-//            Name = "MIT 2022",
-//            Url = new Uri("https://opensource.org/license/mit/")
-//        }
-//    });
-//    options.IncludeXmlComments(xmlPath);
-//});
+var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Movie API",
+        Description = "The best movie API!",
+        Contact = new OpenApiContact
+        {
+            Name = "Emil Solgaard & Simon Løvschal",
+            Url = new Uri("https://github.com/hostilelogout/MovieAPI")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "MIT 2022",
+            Url = new Uri("https://opensource.org/license/mit/")
+        }
+    });
+    options.IncludeXmlComments(xmlPath);
+});
 
 builder.Services.AddTransient<ICharacterService, CharacterService>();
 builder.Services.AddTransient<IFranchiseService, FranchiseService>();
