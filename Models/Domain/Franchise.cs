@@ -19,6 +19,6 @@ namespace MovieApi.Models.Domain
         [MaxLength(200)]
         public string ? Description { get; set; }
         // Relationships
-        public ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; }
     }
 }

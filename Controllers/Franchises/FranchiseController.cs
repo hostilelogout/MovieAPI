@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieApi.Models;
 using MovieApi.Models.Domain;
+using MovieApi.Models.DTO.Characters;
 using MovieApi.Models.DTO.Franchises;
 using MovieApi.Models.DTO.Movies;
 using MovieApi.Services.Franchises;
@@ -157,6 +158,34 @@ namespace MovieApi.Controllers.Franchises
             {
                 await _franchiseService.UpdateMoviesAsync(movieIds, id);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+        }
+
+        /// <summary>
+        /// Gets all characters in a specific franchise, by id.
+        /// </summary>
+        /// <param name="id">The id/index of the specific franchise in database.</param>
+        /// <returns></returns>
+        [HttpGet("{id}/characters")]
+        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersForFranchise(int id)
+        {
+            try
+            {
+                return Ok(
+                        _mapper.Map<List<CharacterReadDTO>>(
+                            await _franchiseService.GetCharactersAsync(id)
+                        )
+                    );
             }
             catch (Exception ex)
             {

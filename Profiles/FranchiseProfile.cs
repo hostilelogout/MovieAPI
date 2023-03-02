@@ -13,7 +13,9 @@ namespace MovieApi.Profiles
             CreateMap<FranchiseEditDTO, Franchise>();
             CreateMap<Franchise, FranchiseReadDTO>()
                 .ForMember(dto => dto.Movies, opt => opt
-                .MapFrom(p => p.Movies.Select(s => s.Id).ToList()));
+                .MapFrom(p => p.Movies
+                .ToDictionary(x => x.Id, x => x.MovieTitle)));
+                //.Select(s => s.Id).ToList()));
         }
     }
 }

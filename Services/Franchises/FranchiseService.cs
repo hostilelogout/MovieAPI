@@ -59,6 +59,23 @@ namespace MovieApi.Services.Franchises
                 .FirstAsync();
         }
 
+        public async Task<ICollection<Character>> GetCharactersAsync(int franchiseId)
+        {
+            // Log and throw error handling
+            if (!await FranchiseExistsAsync(franchiseId))
+            {
+                _logger.LogError("Franchise not found with Id: " + franchiseId);
+                throw new Exception();
+            }
+            // Dont need to include related data because of the DTO we are mapping to.
+            // This can change depending on the business requirements.
+            return await _movieDbContext.Movie
+                .Where(m => m.FranchiseId == franchiseId)
+                .SelectMany(m => m.Characters).Distinct()
+                .Include(p => p.Movies)
+                .ToListAsync();
+        }
+
         public async Task<ICollection<Movie>> GetMoviesAsync(int franchiseId)
         {
             // Log and throw error handling
@@ -70,7 +87,7 @@ namespace MovieApi.Services.Franchises
             // Dont need to include related data because of the DTO we are mapping to.
             // This can change depending on the business requirements.
             return await _movieDbContext.Movie
-                .Where(s => s.FranchiseId == franchiseId)
+                .Where(m => m.FranchiseId == franchiseId)
                 .ToListAsync();
         }
 
