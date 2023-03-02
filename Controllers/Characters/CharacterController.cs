@@ -5,20 +5,24 @@ using MovieApi.Models.DTO.Characters;
 using System.Net.Mime;
 using AutoMapper;
 using MovieApi.Models.Domain;
+using MovieApi.Services.Characters;
+using MovieApi.Models.DTO.Franchises;
+using System.Net;
 
 namespace MovieApi.Controllers.Characters
 {
-    [Route("api/v1/character")]
-    [ApiController]
+    [Route("api/v1/[controller]")]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ApiConventionType(typeof(DefaultApiConventions))]
+
+    [ApiController]
     public class CharacterController : ControllerBase
     {
-        protected readonly MovieDbContext? _context;
-        protected readonly IMapper? _mapper;
+        protected readonly ICharacterService ? _context;
+        protected readonly IMapper ? _mapper;
 
-        public CharacterController(MovieDbContext? context, IMapper? mapper)
+        public CharacterController(ICharacterService ? context, IMapper ? mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -31,7 +35,7 @@ namespace MovieApi.Controllers.Characters
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
-            return Ok(await _context!.Character.ToListAsync());
+            return Ok(_mapper!.Map<List<CharacterReadDTO>>(await _context!.GetAllAsync()));
         }
 
         /// <summary>
@@ -42,11 +46,22 @@ namespace MovieApi.Controllers.Characters
         [HttpGet("{id}")]
         public async Task<ActionResult<CharacterReadDTO>> GetCharacterById(int id)
         {
-            Character? character = await _context!.Character.FindAsync(id);
-
-            if (character == null) { return NotFound(); }
-
-            return Ok(character);
+            try
+            {
+                return Ok(_mapper!.Map<CharacterReadDTO>(
+                        await _context!.GetByIdAsync(id))
+                    );
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
         }
 
         /// <summary>
@@ -57,10 +72,7 @@ namespace MovieApi.Controllers.Characters
         [HttpPost]
         public async Task<ActionResult<CharacterCreateDTO>> CreateCharacter(Character character)
         {
-            _context?.Character.Add(character);
-            await _context!.SaveChangesAsync();
-
-            return CreatedAtAction("GetCharacter",new {id = character.Id},character);
+            return null;
         }
 
 
@@ -73,22 +85,7 @@ namespace MovieApi.Controllers.Characters
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCharacter(int id, CharacterEditDTO character)
         {
-            if (id != character.Id) {  return BadRequest(); }
-
-            Character ? domainCharacter = _mapper!.Map<Character>(character);
-            _context!.Entry(domainCharacter).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CharacterExists(id)) return NotFound();
-                else { throw; }
-            }
-
-           return NoContent();
+            return null;
         }
 
         /// <summary>
@@ -99,15 +96,22 @@ namespace MovieApi.Controllers.Characters
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCharacter(int id)
         {
-            Character ? character = await _context!.Character.FindAsync(id);
-            if (character == null) { return NotFound(); }
-
-            _context.Character.Remove(character);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            try
+            {
+                await _context!.DeleteByIdAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
         }
 
-        protected bool CharacterExists(int id) => _context!.Character.Any(x => x.Id == id);
     }
 }
