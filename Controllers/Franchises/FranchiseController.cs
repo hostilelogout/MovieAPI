@@ -46,7 +46,7 @@ namespace MovieApi.Controllers.Franchises
         /// <summary>
         /// Gets a specific franchise by a given <paramref name="id"/>.
         /// </summary>
-        /// <param name="id">The id/index of specific <see cref="Franchise"/> object in database.</param>
+        /// <param name="id">The id/index of specific franchise in database.</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<FranchiseReadDTO>> GetFranchise(int id)
@@ -72,8 +72,8 @@ namespace MovieApi.Controllers.Franchises
         /// <summary>
         /// Update a specific franchise with given <paramref name="id"/>.
         /// </summary>
-        /// <param name="id">The id/index of specific <see cref="Franchise"/> object in database.</param>
-        /// <param name="franchise">The new <see cref="FranchiseEditDTO"/> object to apply changes with.</param>
+        /// <param name="id">The id/index of specific franchise in database.</param>
+        /// <param name="franchise">The new FranchiseEditDTO to apply changes with.</param>
         /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFranchise(int id, FranchiseEditDTO franchise)
@@ -105,7 +105,7 @@ namespace MovieApi.Controllers.Franchises
         /// <summary>
         /// Creates a new franchise.
         /// </summary>
-        /// <param name="franchiseDto">The <see cref="FranchiseCreateDTO"/> to create from.</param>
+        /// <param name="franchiseDto">The FranchiseCreateDTO to create from.</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> PostFranchise(FranchiseCreateDTO franchiseDto)
@@ -118,7 +118,7 @@ namespace MovieApi.Controllers.Franchises
         /// <summary>
         /// Delete a specific franchise by a given <paramref name="id"/>.
         /// </summary>
-        /// <param name="id">The id/index of specific <see cref="Franchise"/> object in database.</param>
+        /// <param name="id">The id/index of specific franchise in database.</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFranchise(int id)
@@ -143,7 +143,7 @@ namespace MovieApi.Controllers.Franchises
         /// <summary>
         /// Gets all the movies of a specific franchise, with a given <paramref name="id"/>.
         /// </summary>
-        /// <param name="id">The id/index of specific <see cref="Franchise"/> object in database.</param>
+        /// <param name="id">The id/index of specific franchise in database.</param>
         /// <returns></returns>
         [HttpGet("{id}/movies")]
         public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMoviesForFranchise(int id)
@@ -171,8 +171,8 @@ namespace MovieApi.Controllers.Franchises
         /// <summary>
         /// Updates the movies in a specific franchise, by the their ids.
         /// </summary>
-        /// <param name="movieIds">The ids/indicies of <see cref="Movie"/> object in the <see cref="Franchise"/>.</param>
-        /// <param name="id">The id/index of specific <see cref="Franchise"/> object in database.</param>
+        /// <param name="movieIds">The ids/indicies of movies in the franchise.</param>
+        /// <param name="id">The id/index of specific franchise in database.</param>
         /// <returns></returns>
         [HttpPut("{id}/movies")]
         public async Task<IActionResult> UpdateMoviesForFranchise(int[] movieIds, int id)
