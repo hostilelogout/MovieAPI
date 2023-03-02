@@ -68,10 +68,57 @@ namespace MovieApi.Services.Characters
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddCharacterToMovie(int movieId, int id)
+        {
+            ICollection<Movie> movie = await _context!.Movie
+                .Where(x => x.Id == movieId) .ToListAsync();
+
+            Character character = await _context!.Character
+                .Where(p => p.Id == id)
+                .FirstAsync();
+
+            character.Movies = movie;
+
+            if (await CharacterHasMovie(character.Id, movieId))
+            {
+                _logger!.LogError("Character already contains movie : " + character.Movies.First().MovieTitle);
+                throw new Exception();
+            }
+
+            _context.Entry(character).State = EntityState.Modified;
+            // Save all the changes
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddCharacterToMultipleMovies(int[] movieIds, int id)
+        {
+            List<Movie> movies = movieIds
+                .ToList()
+                .Select(sid => _context!.Movie
+                .Where(s => s.Id == sid).First())
+                .ToList();
+
+            Character character = await _context!.Character
+                .Where(p => p.Id == id)
+                .FirstAsync();
+
+            character.Movies = movies;
+
+
+            _context.Entry(character).State = EntityState.Modified;
+            // Save all the changes
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<bool> CharacterExistsAsync(int id)
         {
             return await _context!.Character.AnyAsync(x => x.Id == id);
         }
 
+        public async Task<bool> CharacterHasMovie(int charId, int movieId)
+        {
+            return await _context!.Character.AnyAsync(x => x.Id == charId && x.Movies!.Any(x => x.Id == movieId));
+        }
+      
     }
 }
