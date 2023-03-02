@@ -2,5 +2,6 @@
 {
     public class MovieDeleteDTO
     {
+        public int Id { get; set; }
     }
 }
