@@ -10,6 +10,6 @@ namespace MovieApi.Models.DTO.Characters
         public string? Gender { get; set; }
         public string? PictureUrl { get; set; }
 
-        public List<int> Movies { get; set; } = null!;
+        public List<string> Movies { get; set; } = null!;
     }
 }
