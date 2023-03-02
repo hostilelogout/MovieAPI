@@ -19,7 +19,7 @@ namespace MovieApi.Models.DTO.Movies
         public string? TrailerUrl { get; set; }
         // Relationships
         public int? FranchiseId { get; set; }
-        public Franchise? Franchise { get; set; }
-        public ICollection<Character>? Characters { get; set; }
+        public KeyValuePair<int, string>? Franchise { get; set; }
+        public Dictionary<int, string>? Characters { get; set; }
     }
 }
