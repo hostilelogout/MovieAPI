@@ -12,8 +12,10 @@ namespace MovieApi.Profiles
             CreateMap<CharacterDeleteDTO, Character>();
             CreateMap<CharacterEditDTO, Character>();
             CreateMap<Character, CharacterReadDTO>()
-                .ForMember(dto => dto.Movies, opt => opt
-                .MapFrom(p => p.Movies!.Select(s => s.MovieTitle).ToList()));
+                .ForMember(x => x.Movies, y => y
+                .MapFrom(p => p.Movies!
+                .ToDictionary(x => x.Id, x => x.MovieTitle)));
+
         }
     }
 }

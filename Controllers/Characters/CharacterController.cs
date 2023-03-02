@@ -70,9 +70,11 @@ namespace MovieApi.Controllers.Characters
         /// <param name="character"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<CharacterCreateDTO>> CreateCharacter(Character character)
+        public async Task<ActionResult<CharacterCreateDTO>> CreateCharacter(CharacterCreateDTO characterDto)
         {
-            return null;
+            Character character = _mapper!.Map<Character>(characterDto);
+            await _context!.AddAsync(character);
+            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
         }
 
 

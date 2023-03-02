@@ -9,6 +9,6 @@ namespace MovieApi.Models.DTO.Characters
         public string? Alias { get; set; }
         public string? Gender { get; set; }
         public string? PictureUrl { get; set; }
-        public ICollection<string>? Movies { get; set; }
+        public Dictionary<int, string>? Movies { get; set; }
     }
 }
