@@ -171,6 +171,11 @@ namespace MovieApi.Controllers.Franchises
             }
         }
 
+        /// <summary>
+        /// Gets all characters in a specific franchise, by id.
+        /// </summary>
+        /// <param name="id">The id/index of the specific franchise in database.</param>
+        /// <returns></returns>
         [HttpGet("{id}/characters")]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersForFranchise(int id)
         {
