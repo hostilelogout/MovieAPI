@@ -4,11 +4,9 @@ namespace MovieApi.Models.DTO.Characters
 {
     public class CharacterCreateDTO
     {
-        public string? FullName { get; set; }
-        public string? Alias { get; set; }
-        public string? Gender { get; set; }
-        public string? PictureUrl { get; set; }
-
-        public Dictionary<int, string>? Movies { get; set; }
+        public string? FullName { get; set; } = null!;
+        public string? Alias { get; set; } = null!;
+        public string? Gender { get; set; } = null!;
+        public string? PictureUrl { get; set; } = null!;
     }
 }

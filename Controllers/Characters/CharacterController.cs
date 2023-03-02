@@ -67,16 +67,15 @@ namespace MovieApi.Controllers.Characters
         /// <summary>
         /// Adds a new character to the database.
         /// </summary>
-        /// <param name="character"></param>
+        /// <param name="characterDto"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<CharacterCreateDTO>> CreateCharacter(CharacterCreateDTO characterDto)
+        public async Task<ActionResult> PostCharacter(CharacterCreateDTO characterDto)
         {
             Character character = _mapper!.Map<Character>(characterDto);
             await _context!.AddAsync(character);
-            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+            return CreatedAtAction("GetCharacterById", new { id = character.Id }, character);
         }
-
 
         /// <summary>
         /// Updates a character.
@@ -87,7 +86,71 @@ namespace MovieApi.Controllers.Characters
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCharacter(int id, CharacterEditDTO character)
         {
-            return null;
+            if (id != character.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _context!.UpdateAsync(
+                        _mapper!.Map<Character>(character)
+                    );
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}/movie")]
+        public async Task<IActionResult> AddCharacterToMovie(int movieId, int id)
+        {
+            try
+            {
+                await _context!.AddCharacterToMovie(movieId, id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+        }
+
+        [HttpPut("{id}/movies")]
+        public async Task<IActionResult> AddCharacterToMovies(int[] movieIds, int id)
+        {
+            try
+            {
+                await _context!.AddCharacterToMultipleMovies(movieIds, id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
         }
 
         /// <summary>
