@@ -1,6 +1,8 @@
-﻿namespace MovieApi.Profiles
+﻿using AutoMapper;
+
+namespace MovieApi.Profiles
 {
-    public class MovieProfile
+    public class MovieProfile : Profile
     {
     }
 }
