@@ -1,4 +1,6 @@
-﻿namespace MovieApi.Models.DTO.Movies
+﻿using MovieApi.Models.Domain;
+using System.ComponentModel.DataAnnotations;
+namespace MovieApi.Models.DTO.Movies
 {
     public class MovieCreateDTO
     {
