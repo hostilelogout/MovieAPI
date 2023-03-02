@@ -1,37 +1,63 @@
-﻿using MovieApi.Models.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieApi.Models;
+using MovieApi.Models.Domain;
 
 namespace MovieApi.Services.Movies
 {
     public class MovieService : IMovieService
     {
-        public Task AddAsync(Movie entity)
+        protected readonly MovieDbContext? _context;
+        protected readonly ILogger<MovieService>? _logger;
+
+        public MovieService(MovieDbContext? context, ILogger<MovieService>? logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
+
+        public async Task AddAsync(Movie entity)
+        {
+            await _context!.AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteByIdAsync(int id)
+        public async Task<ICollection<Movie>> GetAllAsync()
+        {
+            return await _context!.Movie                 
+                 .Include(x => x.Characters)
+                 .Include(x => x.Franchise)
+                 .ToListAsync();
+        }
+
+        public async Task<Movie> GetByIdAsync(int id)
+        {
+            // Log and throw error handling
+            if (!await MovieExistsAsync(id))
+            {
+                _logger!.LogError("Character not found with Id: " + id);
+                throw new Exception();
+            }
+            // Want to include all related data for movie
+            return await _context!.Movie
+                .Where(p => p.Id == id)
+                .Include(p => p.Characters)
+                .Include(p => p.Franchise)
+                .FirstAsync();
+        }
+
+        public async Task UpdateAsync(Movie entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<Movie>> GetAllAsync()
+        public async Task<bool> MovieExistsAsync(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Movie> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Movie entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> MovieExistsAsync(int id)
-        {
-            throw new NotImplementedException();
+            return await _context!.Movie.AnyAsync(x => x.Id == id);
         }
     }
 }

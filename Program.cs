@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using MovieApi.Models;
 using MovieApi.Services.Characters;
 using MovieApi.Services.Franchises;
+using MovieApi.Services.Movies;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +44,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ICharacterService, CharacterService>();
 builder.Services.AddTransient<IFranchiseService, FranchiseService>();
+builder.Services.AddTransient<IMovieService, MovieService>();
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 var app = builder.Build();
