@@ -4,7 +4,6 @@ namespace MovieApi.Models.DTO.Movies
 {
     public class MovieCreateDTO
     {
-        public int Id { get; set; }
         // Fields
         [MaxLength(50)]
         public string? MovieTitle { get; set; }

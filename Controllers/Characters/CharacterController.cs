@@ -112,7 +112,11 @@ namespace MovieApi.Controllers.Characters
 
             return NoContent();
         }
-
+        /// <summary>
+        /// add a character to a single movie by character id and movie id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPut("{id}/movie")]
         public async Task<IActionResult> AddCharacterToMovie(int movieId, int id)
         {
@@ -133,6 +137,11 @@ namespace MovieApi.Controllers.Characters
             }
         }
 
+        /// <summary>
+        /// add a character to multiple movies by movie ids and character id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPut("{id}/movies")]
         public async Task<IActionResult> AddCharacterToMovies(int[] movieIds, int id)
         {
